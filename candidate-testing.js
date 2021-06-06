@@ -10,9 +10,9 @@ let candidateName = "";
 let question = "Who was the first American woman in space?";
 let correctAnswer = "Sally Ride";
 let candidateAnswer = ""; 
-let questions = ["Who was the first American woman in space? ", "True or false: 5 kilometer == 5000 meters? ", "(5 + 3)/2 * 10 = ? ", "Given the array [8, 'Orbit', 'Trajectory', 45], what entry is at index 2? ", "What is the minimum crew size for the ISS? "];
+let questions = [ "Who was the first American woman in space? ", "True or false: 5 kilometer == 5000 meters? ", "(5 + 3)/2 * 10 = ? ", "Given the array [8, 'Orbit', 'Trajectory', 45], what entry is at index 2? ", "What is the minimum crew size for the ISS? " ];
 let correctAnswers = ["Sally Ride", "true", "40", "Trajectory", "3"];
-let candidateAnswers = [];
+let candidateAnswers = []
 
 
 function askForName() {
@@ -24,16 +24,19 @@ function askQuestion() {
   // TODO 1.2b: Ask candidate the question and assign the response as candidateAnswer //
 
 for (let i = 0; i < questions.length; i++){
-candidateAnswers = input.question(questions[i]);
-      if (candidateAnswers === correctAnswers[i]) {
+candidateAnswers[i] = input.question(questions[i]);
+      if (candidateAnswers[i] === correctAnswers[i]) {
       console.log("Correct"); 
     } else {
-      console.log("Incorrect");
       console.log("correct answer:" + correctAnswers[i]);
     }
 }
 }
 
+// as it stands…. sally ride is not equal to Sally Ride. even though the answer would be correct, it would come up as false
+
+// 2:48
+// if you can solve that part you are doing ok
 
 
 
@@ -41,11 +44,22 @@ candidateAnswers = input.question(questions[i]);
 function gradeQuiz(candidateAnswers) {
 
   // TODO 1.2c: Let the candidate know if they have answered the question correctly or incorrectly // 
+let numberOfCorrectAnswers = 0
+  console.log(`\nCandidate Name: ${candidateName}`);
+  for (i = 0; i < questions.length; i++) {
+    if (candidateAnswers[i].toLowerCase() === correctAnswers[i].toLowerCase()) {
+      numberOfCorrectAnswers ++
+    }
+      console.log(`${i + 1}) ${questions[i]}\nYour Answer: ${candidateAnswers[i]}\nCorrect Answer: ${correctAnswers[i]}` + '\n');
+  }
 
-
-  let grade;
-  
-
+  let grade = (numberOfCorrectAnswers / questions.length) * 100;
+  console.log(`>>>Overall Grade: ${grade}% (${numberOfCorrectAnswers} of ${questions.length} responses correct<<<)`);
+  if (grade >= 80) {
+    console.log('>>>Status: PASSED <<<');
+  } else {
+    console.log('>>> Status: FAILED <<<');
+  }
   return grade;
 }
 
